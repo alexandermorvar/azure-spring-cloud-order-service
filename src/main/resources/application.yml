@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: order-service
+  jackson:
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
