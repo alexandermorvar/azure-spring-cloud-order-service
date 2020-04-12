@@ -19,21 +19,21 @@ public class OrderController {
     }
 
     @PostMapping("/order")
-    public ResponseEntity<String> submitOrder(@RequestBody List<OrderItem> orderItems) {
-        List<Inventory> inventory = createInventoryRequest(orderItems);
+    public ResponseEntity<String> submitOrder(@RequestBody List<Order> orders) {
+        List<Inventory> inventory = createInventoryRequest(orders);
         inventoryServiceClient.updateInventory(inventory);
         return new ResponseEntity<String>("Order Submitted Successfully",
                 HttpStatus.OK);
     }
 
-    private List<Inventory> createInventoryRequest(List<OrderItem>  orderItems) {
+    private List<Inventory> createInventoryRequest(List<Order> orders) {
         List<Inventory> inventories = new ArrayList<>();
-        orderItems.forEach(orderItem -> {
+        orders.forEach(order -> {
             inventories.add(Inventory.builder()
-                    .id(orderItem.getId())
-                    .productName(orderItem.getProductName())
-                    .productCategory(orderItem.getProductCategory())
-                    .quantity(orderItem.getQuantity())
+                    .id(order.getInventoryId())
+                    .productName(order.getProductName())
+                    .productCategory(order.getProductCategory())
+                    .quantity(order.getQuantity())
                     .build());
         });
 
